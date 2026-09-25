@@ -10,15 +10,18 @@ def clean(hi):
     hi = nfc(hi).split(',')[0]
     hi = re.sub(r'\s*(जिला|ज़िला|तहसील|नगर पालिका|नगर निगम|ब्लॉक|विकासखंड)$', '', hi).strip()
     return hi
+def clean_en(en):
+    en = nfc(en); en = re.sub(r'\s+(district|tehsil|block|municipality|nagar panchayat)$', '', en, flags=re.I).strip()
+    return en
 def load(min_len=3, drop_common=True):
     """Return {hindi_name: {'en','item','src','ambiguous'}}."""
     common = set(json.load(open(ROOT / 'data/raw/ll_hin_words.json'))) if drop_common else set()
     gaz = {}
     def add(r, src):
         hi = clean(r['hi'])
-        if len(hi) < min_len or len(hi.split()) > 2 or hi in STOP: return
-        d = gaz.setdefault(hi, {'en': nfc(r['en']), 'item': r['item'].rsplit('/', 1)[-1], 'src': src, 'ambiguous': hi in common})
-        if src != 'uk' and d['src'] == 'uk': d.update(en=nfc(r['en']) or d['en'], src=src)   # prefer town/district record
+        if len(hi) < min_len or len(hi.split()) > 2 or hi in STOP or re.search(r'[A-Za-z0-9.()]', hi): return
+        d = gaz.setdefault(hi, {'en': clean_en(r['en']), 'item': r['item'].rsplit('/', 1)[-1], 'src': src, 'ambiguous': hi in common})
+        if src != 'uk' and d['src'] == 'uk': d.update(en=clean_en(r['en']) or d['en'], src=src)   # prefer town/district record
     for r in csv.DictReader(open(ROOT / 'data/raw/wd_in_districts.csv')): r['hi'] and add(r, 'district')
     for r in csv.DictReader(open(ROOT / 'data/raw/wd_in_towns.csv')): r['hi'] and add(r, 'town')
     for r in csv.DictReader(open(ROOT / 'data/raw/wd_uk.csv')): r['hi'] and add(r, 'uk')
