@@ -1,5 +1,5 @@
 {
-  "name": "ukis-p015-tools",
+  "name": "place-name-records-from-speech-tools",
   "private": true,
   "description": "Playwright for the interface check (ui/check/ui_check.cjs). The web UI itself lives in ui/.",
   "scripts": { "ui-check": "node ui/check/ui_check.cjs" },

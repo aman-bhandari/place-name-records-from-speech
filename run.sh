@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Eknaam (UKIS 2026 P-015) — one entry point for everything.
+# Eknaam — one entry point for everything.
 #   ./run.sh serve              API + interface on http://127.0.0.1:8015 (needs ui/dist: run ./run.sh ui once)
 #   ./run.sh test               pytest: phonology, consensus, API, audit chain (uses the committed data/p015.sqlite)
 #   ./run.sh ui                 build the interface into ui/dist
@@ -11,7 +11,7 @@
 #   ./run.sh eval [--noise]     docs/RESULTS numbers -> data/eval.json
 set -e; cd "$(dirname "$0")"
 PY=.venv/bin/python; [ -x "$PY" ] || PY=python
-REPO="${REPO:-aman-bhandari/ukis-p015}"   # GitHub repo that carries the demo-audio release
+REPO="${REPO:-aman-bhandari/place-name-records-from-speech}"   # GitHub repo that carries the demo-audio release
 
 # Playwright scripts run with the repo's own node_modules; a global launcher is used only as a fallback.
 pw() {

@@ -1,4 +1,4 @@
-# Demo script — Eknaam (P-015), about three minutes
+# Demo script — Eknaam, about three minutes
 
 Start: `./run.sh serve` → http://127.0.0.1:8015
 
