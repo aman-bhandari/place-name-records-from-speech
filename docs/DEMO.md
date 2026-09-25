@@ -1,6 +1,6 @@
 # Demo script — Eknaam (P-015), about three minutes
 
-Start: `cd ~/workshop/ukis-p015 && ./run.sh serve` → http://127.0.0.1:8015
+Start: `./run.sh serve` → http://127.0.0.1:8015
 
 1. **The problem in one screen (20 s).** Open the queue. Point at the counts: names, recordings, distinct speakers, all
    pending. "Every name here was said by several real people in All India Radio bulletins and in AI4Bharat's

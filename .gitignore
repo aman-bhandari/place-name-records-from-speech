@@ -1,8 +1,12 @@
+*.log
+*.pyc
+.pytest_cache/
 .venv/
-data/raw/
+__pycache__/
+data/*.tar.gz
 data/audio/
 data/cache/
-*.pyc
-__pycache__/
-ui/node_modules/
+data/raw/
+node_modules/
 ui/dist/
+ui/node_modules/

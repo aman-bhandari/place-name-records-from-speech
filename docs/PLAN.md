@@ -6,7 +6,7 @@ exceptions), IPA; reconcile speakers rather than pick the clearest clip; survive
 regional variants as linked alternates; confidence + competing spellings + evidence; officer review workspace with
 replay, compare-to-existing, edit, approve, audit. Decision support only. Full statement: `ukis-p015/docs/PROBLEM.md`.
 
-Repo: `~/workshop/ukis-p015` (git). Stack, all local on the RTX 3050 (6 GB), no paid API:
+Repo: this repository. Stack, all local on the RTX 3050 (6 GB), no paid API:
 Python 3.14 venv → **torch 2.14 + transformers 5.17** → witnesses: `Harveenchadha/vakyansh-wav2vec2-hindi-him-4200`
 (Hindi CTC, Devanagari), `ai4bharat/indicwav2vec-hindi` (second Hindi CTC), `facebook/wav2vec2-xlsr-53-espeak-cv-ft`
 (acoustic phones, language-independent) → **consensus engine** (phonetic multi-sequence alignment + weighted vote +
