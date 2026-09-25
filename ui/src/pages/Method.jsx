@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { api } from '../api.js'
 export default function Method() {
+  const [res, setRes] = useState(null)
+  useEffect(() => { fetch('/api/results').then((r) => r.json()).then(setRes).catch(() => {}) }, [])
   return (
     <div className="p-4 md:p-6 max-w-3xl leading-relaxed">
       <h1 className="text-2xl mb-3">How a recommendation is made</h1>
@@ -20,6 +23,14 @@ export default function Method() {
         <li>Gazetteer and existing records: Wikidata labels (Hindi and English) for Indian settlements, districts and Uttarakhand places.</li>
         <li>Models: vakyansh-wav2vec2-hindi, ai4bharat/indicwav2vec-hindi, wav2vec2-xlsr-53-espeak (phones), wavlm-base-plus-sv (speakers). All run locally.</li>
       </ul>
+      {res?.exact && <div className="mt-6">
+        <h2 className="text-lg border-b hair pb-1">Measured on this store</h2>
+        <p className="text-sm text-ink-soft mt-2">{res.n_cases} names with at least three real recordings ({res.clips_per_case?.toFixed(1)} clips and {res.speakers_per_case?.toFixed(1)} speakers per name). Exact spelling recovered:</p>
+        <table className="text-sm mt-2"><tbody>{Object.entries(res.exact).map(([k, v]) => <tr key={k} className="border-b hair"><td className="py-1 pr-6">{k}</td><td className="text-right">{Math.round(v * 100)}%</td></tr>)}</tbody></table>
+        {res.clips_sweep_acoustic && <p className="text-sm text-ink-soft mt-3">Acoustic-only consensus by number of clips: {Object.entries(res.clips_sweep_acoustic).map(([k, v]) => `${k} clip${k === '1' ? '' : 's'} ${Math.round(v.exact * 100)}%`).join(' · ')}</p>}
+        {res.noise_sweep_acoustic && <p className="text-sm text-ink-soft mt-1">With added white noise: {Object.entries(res.noise_sweep_acoustic).map(([k, v]) => `${k === 'clean' ? 'clean' : k + ' dB SNR'} ${Math.round(v.exact * 100)}%`).join(' · ')}</p>}
+        {res.by_band && <p className="text-sm text-ink-soft mt-1">By confidence band: {Object.entries(res.by_band).map(([k, v]) => `${k} ${Math.round(v.exact * 100)}% (${v.n})`).join(' · ')}</p>}
+      </div>}
       <p className="mt-4 text-ink-soft">Decision support only. Nothing leaves this workspace as an official name until an officer approves it, and every action is in the audit trail.</p>
     </div>
   )

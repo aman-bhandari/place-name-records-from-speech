@@ -127,5 +127,8 @@ async def upload(name_hi: str = Form(''), existing_en: str = Form(''), kind: str
     c.execute('INSERT OR REPLACE INTO recommendation (case_id, record, built) VALUES (?,?,?)', (case_id, json.dumps(rec, ensure_ascii=False), time.time())); c.commit()
     store.audit(c, officer, 'uploaded', case_id, {'files': [s[4] for s in saved], 'devanagari': rec.get('devanagari')})
     return {'case_id': case_id, 'record': rec}
+@app.get('/api/results')
+def results():
+    p = ROOT / 'data/eval.json'; return json.load(open(p)) if p.exists() else {}
 dist = ROOT / 'ui/dist'
 if dist.exists(): app.mount('/', StaticFiles(directory=str(dist), html=True), name='ui')

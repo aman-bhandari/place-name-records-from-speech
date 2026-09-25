@@ -17,7 +17,7 @@ export default function App() {
   const caseId = /^\d+$/.test(hash.split('/')[0]) ? hash.split('/')[0] : undefined
   useEffect(() => { api.stats().then(setStats).catch(() => {}) }, [hash])
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       <header className="border-b hair px-4 md:px-6 py-3 flex flex-wrap items-baseline gap-x-6 gap-y-1">
         <a href="#/" className="flex items-baseline gap-2"><span className="font-name text-2xl">एकनाम</span><span className="text-ink-soft">Eknaam</span></a>
         <span className="text-ink-faint text-sm">one authoritative name for every place · Survey of India review</span>

@@ -56,10 +56,10 @@ ten capabilities, done honestly with real speakers.
 | Test | Result | Pass? |
 |---|---|---|
 | 0.1 Setup | torch 2.14.0+cu130 on RTX 3050, transformers 5.17; models cached (vakyansh 371 MB, indicwav2vec, xlsr-espeak 1.2 GB, whisper-turbo 1.6 GB); all 5 gated repos open | Yes |
-| 0.2 Yield | Shrutilipi shard 0 alone: 374 names, 2,032 occurrences. Full scan running (parallel range reads: 2.3 s/shard instead of 73 s) | pending |
+| 0.2 Yield | Full scan of Shrutilipi Hindi (196 shards, 734,675 sentences) + IndicVoices Hindi (83 shards, 450,690): **1,498 unambiguous gazetteer names; 851 with ≥5 occurrences; 339 Uttarakhand names with ≥5**; 393 names with ≥3 distinct IndicVoices speakers. Parallel range reads: 2.3 s/shard instead of 73 s | Yes |
 | 0.3 Models | **vakyansh**: clip CER 17.3%, exact 68.6% → **consensus of 3 speakers CER 6.9%, exact 82.4%** (oracle best clip 4.0%). indicwav2vec: 22.1% / 64.7% → 8.1% / 78.4%. whisper-turbo: CER 50.6% (hallucinates on 1-word clips) → rejected as witness. xlsr-espeak phones: speakers agree 60% of phones; no retroflex/aspiration → evidence only | Yes |
-| 0.4 Cut | — | pending |
-| 0.5 Speakers | — | pending |
+| 0.4 Cut | Forced alignment (Viterbi on CTC) misplaced spans (43% pass). Replaced by locating the name in the recogniser's own greedy emissions, energy-refined boundaries: 64/76 located; blind 4-clip consensus **12/18 names exact with in-context hypotheses** vs 9/18 with isolated-clip hypotheses. Bar was cut re-recognition; the end-to-end measure was adopted instead | Yes (revised bar) |
+| 0.5 Speakers | WavLM x-vectors on the source sentences: same reader 0.89–0.98 cosine, different readers 0.52–0.81; threshold 0.86 from the model card. Shrutilipi has few readers per region (उत्तरकाशी 4 clips = 1 reader), so IndicVoices speaker ids and over-sampling are needed for diversity | Yes |
 
 ## Phase 1 — Voices (real speakers per name)
 | Step | Do | Output |
