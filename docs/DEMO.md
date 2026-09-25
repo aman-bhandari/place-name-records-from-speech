@@ -17,4 +17,4 @@ Start: `./run.sh serve` → http://127.0.0.1:8015
    live. Approve with your name. The audit trail gains a hashed entry; Audit trail page shows the chain verifies.
    Export approved → CSV.
 6. **Field recordings (20 s).** Add recordings: upload three phone clips of one name; it is reconciled and enters the queue.
-7. **Honesty (10 s).** Results page numbers: consensus vs single clip vs oracle, noise sweep, calibration by band.
+7. **Results (10 s).** Results page numbers: consensus vs single clip vs oracle, noise sweep, calibration by band.

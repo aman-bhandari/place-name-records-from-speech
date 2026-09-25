@@ -16,7 +16,7 @@ gazetteer prior) → rule-based **Devanagari↔IPA↔Hunterian** modules → SQL
 
 ## Where we stand against the field
 P-015 was published 22 Sep 2026 and has **0 entries** (25 Sep). No rival to copy or beat; the bar is the statement's
-ten capabilities, done honestly with real speakers.
+ten capabilities, with real speakers.
 
 | Differentiator | Cheap version everyone will do | Ours |
 |---|---|---|
