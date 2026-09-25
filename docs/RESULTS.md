@@ -44,6 +44,6 @@ variant (≥2 speakers on a different spelling): 15.
   hypothesis *in sentence context* raised blind consensus from 9/18 to 12/18 names on the gate sample.
 * xlsr-53-espeak phones: speakers agree on 60% of phones; no retroflex/aspiration → shown as evidence, not scored.
 
-## Known misses (honest)
+## Known misses
 कोटद्वार → कोरद्वार (ट/र), जोशीमठ → जोशीम (final ठ lost in cuts), पिथौरागढ़ → पिथोरागढ़ (ौ/ो: readers say it that way),
 अल्मोड़ा → अलमोड़ा (halant is orthographic, not audible). The existing record is shown beside each so an officer sees it.
