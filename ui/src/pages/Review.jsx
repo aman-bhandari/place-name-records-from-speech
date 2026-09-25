@@ -3,24 +3,25 @@ import { api } from '../api.js'
 import { Waveform, Confidence, SheetEntry, Bar, Band, fmtTs } from '../components.jsx'
 
 export default function Review({ caseId }) {
-  const [list, setList] = useState([]); const [q, setQ] = useState(''); const [status, setStatus] = useState(''); const [band, setBand] = useState('')
+  const [list, setList] = useState([]); const [q, setQ] = useState(''); const [status, setStatus] = useState(''); const [band, setBand] = useState(''); const [sort, setSort] = useState('name')
   useEffect(() => { api.cases({ q, status, band }).then(setList).catch(() => setList([])) }, [q, status, band, caseId])
   return (
     <div className="grid md:grid-cols-[300px_1fr] min-h-[calc(100vh-90px)]">
-      <aside className={'border-r hair ' + (caseId ? 'hidden md:block' : '')}>
+      <aside className={'border-r hair min-w-0 overflow-x-hidden ' + (caseId ? 'hidden md:block' : '')}>
         <div className="p-3 flex flex-col gap-2 border-b hair">
           <input placeholder="Find a name (Hindi or Roman)" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Find a name" />
-          <div className="flex gap-2 text-sm">
+          <div className="flex flex-wrap gap-2 text-sm">
             <select value={status} onChange={(e) => setStatus(e.target.value)} aria-label="Status"><option value="">any status</option><option value="pending">pending</option><option value="approved">approved</option><option value="on hold">on hold</option><option value="rejected">rejected</option></select>
             <select value={band} onChange={(e) => setBand(e.target.value)} aria-label="Confidence"><option value="">any confidence</option><option value="high">high</option><option value="medium">medium</option><option value="low">low</option></select>
+            <select value={sort} onChange={(e) => setSort(e.target.value)} aria-label="Order"><option value="name">by name</option><option value="low">needs attention first</option><option value="high">most certain first</option></select>
           </div>
         </div>
         <ul className="overflow-auto max-h-[calc(100vh-170px)]">
           {list.length === 0 && <li className="p-4 text-ink-faint">No names match. Clear the filters, or add recordings.</li>}
-          {list.map((c) => (
+          {[...list].sort((a, b) => sort === 'name' ? 0 : sort === 'low' ? (a.confidence ?? 0) - (b.confidence ?? 0) : (b.confidence ?? 0) - (a.confidence ?? 0)).map((c) => (
             <li key={c.id}><a href={'#/' + c.id} className={'block px-3 py-2 border-b hair hover:bg-water-soft ' + (String(c.id) === caseId ? 'bg-water-soft' : '')}>
               <div className="flex items-baseline gap-2"><span className="font-name text-xl">{c.devanagari || c.name_hi}</span><span className="text-ink-soft text-sm">{c.roman}</span><span className="ml-auto text-sm"><Band band={c.band} /> {c.confidence != null ? Math.round(c.confidence) : ''}</span></div>
-              <div className="text-xs text-ink-faint flex gap-2">{c.clips} clips · {c.speakers} speakers · {c.status}{c.variants ? ` · ${c.variants} variant` : ''}{c.flags?.some((f) => f.startsWith('speakers disagree')) ? ' · disagreement' : ''}</div>
+              <div className="text-xs text-ink-faint truncate">{c.clips} clips · {c.speakers} speakers · {c.status}{c.variants ? ` · ${c.variants} variant` : ''}{c.flags?.some((f) => f.startsWith('speakers disagree')) ? ' · disagreement' : ''}</div>
             </a></li>
           ))}
         </ul>

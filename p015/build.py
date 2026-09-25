@@ -18,7 +18,7 @@ def pick_diverse(clips, k):
     for c, g in zip(clips, cl): c['spk_key'] = c['speaker'] or f"{c['corpus']}-x{g}"
     clips = sorted(clips, key=lambda c: (c['cut_cer'], -c['snr_db']))
     out, per = [], collections.Counter()
-    for rnd in (1, 2):
+    for rnd in (1, 2, 3):
         for c in clips:
             if c in out or per[c['spk_key']] >= rnd: continue
             out.append(c); per[c['spk_key']] += 1
@@ -31,11 +31,14 @@ def main():
     targets = load_targets(a.targets); gaz = gazetteer.load()
     clips = collections.defaultdict(list)
     for l in open(ROOT / 'data/clips.jsonl'):
-        c = json.loads(l); clips[c['name_hi']].append(c)
+        c = json.loads(l); clips[deva.normalise(c['name_hi'])].append(c)
+    # one case per normalised spelling (Wikidata carries इंदौर and इन्दौर as separate labels)
+    targets = {deva.normalise(k): v for k, v in targets.items()}
     names = [n for n in targets if n in clips]
     if a.gaz_all_india:
-        extra = sorted((n for n in clips if n not in targets and n in gaz), key=lambda n: -len(clips[n]))[:a.gaz_all_india]
-        for n in extra: targets[n] = {'hi': n, 'en': gaz[n]['en'], 'kind': gaz[n]['src']}
+        gazn = {deva.normalise(k): v for k, v in gaz.items()}
+        extra = sorted((n for n in clips if n not in targets and n in gazn), key=lambda n: -len(clips[n]))[:a.gaz_all_india]
+        for n in extra: targets[n] = {'hi': n, 'en': gazn[n]['en'], 'kind': gazn[n]['src']}
         names += extra
     db = store.connect()
     if a.rebuild:
@@ -52,7 +55,7 @@ def main():
     t0 = time.time()
     for k, n in enumerate(todo):
         tg = targets[n]; chosen = pick_diverse(clips[n], a.per_case)
-        wd = gaz.get(n, {}); existing = {'hi': n, 'en': tg.get('en') or wd.get('en', ''), 'item': wd.get('item', ''), 'source': 'Wikidata' if wd else 'curated'}
+        wd = gaz.get(n) or {deva.normalise(k): v for k, v in gaz.items()}.get(n, {}); existing = {'hi': n, 'en': tg.get('en') or wd.get('en', ''), 'item': wd.get('item', ''), 'source': 'Wikidata' if wd else 'curated'}
         cur = db.execute('INSERT OR REPLACE INTO cases (name_hi, kind, existing_en, existing_src, item, status, created) VALUES (?,?,?,?,?,?,?)',
                          (n, tg.get('kind', ''), existing['en'], existing['source'], existing['item'], 'pending', time.time())); case_id = cur.lastrowid
         db.execute('DELETE FROM clips WHERE case_id=?', (case_id,))

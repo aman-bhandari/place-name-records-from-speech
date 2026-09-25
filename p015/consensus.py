@@ -121,15 +121,6 @@ def reconcile(clips, gazetteer=None, existing=None):
     if voted: cands.setdefault(voted, 'vote')
     if existing and existing.get('hi'): cands.setdefault(deva.normalise(existing['hi']), 'existing')
     for g in gazetteer_neighbours(list(cands), gazetteer or []): cands.setdefault(deva.normalise(g), 'gazetteer')
-    # merge candidates that differ only by spacing: keep the existing/gazetteer spelling, else the spacing most clips used
-    merged = collections.OrderedDict()
-    for cand, origin in cands.items():
-        k = cand.replace(' ', '')
-        if k not in merged: merged[k] = (cand, origin); continue
-        old, oo = merged[k]
-        if origin in ('existing', 'gazetteer') and oo not in ('existing', 'gazetteer'): merged[k] = (cand, origin)
-        elif oo not in ('existing', 'gazetteer') and best_texts.count(cand) > best_texts.count(old): merged[k] = (cand, origin)
-    cands = collections.OrderedDict(merged.values())
     # score: how well each candidate explains every clip
     scored = []
     for cand, origin in cands.items():
@@ -142,6 +133,17 @@ def reconcile(clips, gazetteer=None, existing=None):
         support = sum(w * s for w, s in zip(weights, sims)) / W
         supporters = [clips[i]['id'] for i, s in enumerate(sims) if s >= 0.55]
         scored.append({'text': cand, 'origin': origin, 'support': round(float(support), 4), 'supporters': supporters, 'sims': [round(float(s), 3) for s in sims]})
+    # candidates that differ only by spacing are one spelling: keep the best score, show the existing/gazetteer form
+    # if there is one, else the spacing most clips used
+    merged = collections.OrderedDict()
+    for sc in scored:
+        k = sc['text'].replace(' ', '')
+        if k not in merged: merged[k] = dict(sc); continue
+        m = merged[k]
+        if sc['support'] > m['support']: m.update(support=sc['support'], supporters=sc['supporters'], sims=sc['sims'])
+        prefer = sc['origin'] in ('existing', 'gazetteer') and m['origin'] not in ('existing', 'gazetteer')
+        if prefer or (m['origin'] not in ('existing', 'gazetteer') and best_texts.count(sc['text']) > best_texts.count(m['text'])): m.update(text=sc['text'], origin=sc['origin'])
+    scored = list(merged.values())
     scored.sort(key=lambda x: -x['support'])
     top = scored[0]; second = scored[1]['support'] if len(scored) > 1 else 0.0
     # agreement: share of clips whose best hypothesis matches the top by coarse key

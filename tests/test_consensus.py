@@ -26,3 +26,9 @@ def test_existing_record_is_a_candidate_not_a_dictator():
 def test_confidence_capped_by_speakers():
     r = consensus.reconcile([clip(1, 'ईटानगर', 0.99)]); assert r['confidence']['score'] <= 54 and r['confidence']['band'] != 'high'
     r = consensus.reconcile([clip(1, 'ईटानगर'), clip(2, 'ईटानगर')]); assert r['confidence']['score'] <= 70
+
+def test_spacing_variants_share_the_best_score():
+    clips = [clip(1, 'कर्ण प्रयाग'), clip(2, 'कण प्रयाग'), clip(3, 'कर्ण प्रयाग'), clip(4, 'करण प्रयाग')]
+    r = consensus.reconcile(clips, existing={'hi': 'कर्णप्रयाग', 'en': 'Karnaprayag'})
+    assert r['devanagari'] == 'कर्णप्रयाग'
+    r2 = consensus.reconcile(clips); assert r2['devanagari'].replace(' ', '') == 'कर्णप्रयाग'
