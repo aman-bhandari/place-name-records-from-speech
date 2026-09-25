@@ -22,3 +22,7 @@ def test_existing_record_is_a_candidate_not_a_dictator():
     clips = [clip(1, 'कोटद्वार'), clip(2, 'कोटद्वार'), clip(3, 'कोटद्वार')]
     r = consensus.reconcile(clips, gazetteer=['कोटद्वारा', 'कोटद्वार'], existing={'hi': 'कोटद्वारा', 'en': 'Kotdwar'})
     assert r['devanagari'] == 'कोटद्वार' and any(c['origin'] == 'existing' for c in r['candidates'])
+
+def test_confidence_capped_by_speakers():
+    r = consensus.reconcile([clip(1, 'ईटानगर', 0.99)]); assert r['confidence']['score'] <= 54 and r['confidence']['band'] != 'high'
+    r = consensus.reconcile([clip(1, 'ईटानगर'), clip(2, 'ईटानगर')]); assert r['confidence']['score'] <= 70

@@ -151,6 +151,7 @@ def reconcile(clips, gazetteer=None, existing=None):
     gaz_match = bool(gazetteer and top['text'] in set(map(deva.normalise, gazetteer))) or bool(existing and deva.normalise(existing.get('hi', '')) == top['text'])
     spk_factor = min(1.0, n_spk / 5.0)
     conf = 100 * (0.40 * top['support'] + 0.25 * agree + 0.15 * min(1.0, (top['support'] - second) * 3) + 0.10 * spk_factor + 0.10 * mean_conf)
+    conf = min(conf, {0: 40, 1: 54, 2: 70}.get(n_spk, 100))   # fewer than 3 real speakers can never reach high confidence
     flags = []
     if n_spk < 3: flags.append('needs more recordings (fewer than 3 real speakers)')
     if agree < 0.6: flags.append('speakers disagree')
