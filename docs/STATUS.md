@@ -15,14 +15,14 @@ Against the definition of done in `docs/PLAN.md`:
 | AC9 | Confidence decomposed, competing spellings with supporters, existing-record comparison | **Met** | case page |
 | AC10 | Officer workspace, audit chain, export, upload; README/RESULTS/DEMO; rebuild; UI check | **Met** | `./run.sh`; 13 tests pass; Playwright check passes |
 
-## What is left for Aman
+## What is left
 1. **Look at the demo** (`docs/DEMO.md`): `./run.sh serve` → http://127.0.0.1:8015. Review a few names, approve one.
-2. **Decide on synthetic voices**: none are used (they would manufacture evidence from the record). Say if you want
+2. **Decide on synthetic voices**: none are used (they would manufacture evidence from the record). Decide whether
    labelled TTS filler after all.
 3. **Regional variants**: to show Garhwali/Kumaoni pronunciation as linked alternates we need speakers from those
    languages saying place names; Vaani has the voices but almost no transcripts. Options: a small field recording set
    from Uttarakhand contacts, or transcribe Vaani Garhwali clips with the phone recogniser and search phonetically.
-4. Registration is not raised here, per your instruction.
+4. **Registration**: deferred; the draft is written once the team decides.
 
 ## Running it
 ```bash
