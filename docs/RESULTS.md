@@ -1,4 +1,4 @@
-# Results — Eknaam (P-015), measured 25 Sep 2026
+# Results — Eknaam, measured 25 Sep 2026
 
 Store: **200 names** (81 Uttarakhand, 119 all-India towns/districts), **1,059 real clips** chosen from 1,949 mined
 (≤8 per name, speaker-diverse), **224 distinct speakers** (IndicVoices ids + WavLM voice clusters for AIR readers).

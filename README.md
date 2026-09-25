@@ -1,6 +1,6 @@
 # Eknaam (एकनाम): place-name records from spoken audio
 
-UKIS 2026, problem P-015 (Survey of India, Department of Science and Technology).
+Problem: Survey of India needs one authoritative spelling of each place name in Devanagari, Roman and IPA, reconciled from how different speakers say it rather than copied from the clearest recording, with the evidence kept for an officer to review.
 
 Several speakers' recordings of one place name go in; one record comes out: Devanagari, Roman (Hunterian, with a
 documented exception list), IPA, confidence, competing spellings, linked regional variants and per-clip evidence.
@@ -24,7 +24,7 @@ Officers review, edit, approve and export; every action goes into a hash-chained
 | `data/clips.jsonl`, `targets_uk.yaml`, `exceptions.yaml`, `eval.json` | Clip provenance, gazetteer, Roman exceptions with reasons, evaluation output |
 | `spikes/` | Model and yield experiments from the gate phase |
 | `tests/` | 13 tests: phonology, consensus, API, audit chain |
-| `docs/` | STATUS, PLAN, PROBLEM, ROMANISATION, RESULTS, DEMO |
+| `docs/` | STATUS, ROMANISATION, RESULTS, DEMO |
 
 ## Status (25 September 2026)
 
@@ -39,7 +39,7 @@ Officers review, edit, approve and export; every action goes into a hash-chained
 | Synthetic voices | Not used |
 | Tests, page check | 13 pass; page check passes |
 | Audio | Not in git; release asset `demo-audio` (40 MB), fetched by `./run.sh audio` |
-| Demo video, hosted demo, registration | Not done |
+| Demo video, hosted demo | Not done |
 
 Acceptance table: `docs/STATUS.md` (AC7 partly met, the rest met).
 

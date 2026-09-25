@@ -1,4 +1,4 @@
-# Eknaam (UKIS 2026 P-015). Pinned to the versions the results in docs/RESULTS.md were measured with.
+# Eknaam. Pinned to the versions the results in docs/RESULTS.md were measured with.
 # torch: install the build for your hardware first (https://pytorch.org/get-started/locally/), e.g.
 #   pip install torch==2.14.0 --index-url https://download.pytorch.org/whl/cu130   # NVIDIA, CUDA 13
 #   pip install torch==2.14.0                                                       # CPU only (slow build, fine for serve)

@@ -1,4 +1,4 @@
-"""Eknaam (एकनाम) — officer review API for P-015. Serves cases, clips, decisions, audit, export and the UI."""
+"""Eknaam (एकनाम) — officer review API. Serves cases, clips, decisions, audit, export and the UI."""
 import sys, json, pathlib, time, io, csv, hashlib, threading
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 from fastapi import FastAPI, HTTPException, UploadFile, File, Form
@@ -7,7 +7,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from p015 import store, deva, phon, roman, consensus, gazetteer
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-app = FastAPI(title='Eknaam P-015')
+app = FastAPI(title='Eknaam')
 _models = {}; _lock = threading.Lock()
 def db(): return store.connect()
 def rec_of(row): return json.loads(row['record']) if row and row['record'] else None

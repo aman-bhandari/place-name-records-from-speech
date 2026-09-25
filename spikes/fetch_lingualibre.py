@@ -1,6 +1,6 @@
 """Fetch Lingua Libre Hindi word clips (Commons, CC BY-SA) for words said by >= MIN speakers."""
 import json, sys, time, urllib.request, urllib.parse, pathlib
-UA = {'User-Agent': 'ukis-p015-research/0.1 (bhandari.aman0101@gmail.com)'}
+UA = {'User-Agent': 'eknaam-research/0.1 (bhandari.aman0101@gmail.com)'}
 MIN = int(sys.argv[1]) if len(sys.argv) > 1 else 3
 root = pathlib.Path(__file__).resolve().parents[1]
 words = json.load(open(root / 'data/raw/ll_hin_words.json'))
