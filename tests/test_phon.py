@@ -1,0 +1,37 @@
+import sys, pathlib; sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+from p015 import deva, phon, roman
+def test_normalise_nasals():
+    assert deva.normalise('चण्डीगढ़') == 'चंडीगढ़'
+    assert deva.normalise('हां') == 'हाँ' and deva.normalise('नहीँ') == 'नहीं'
+    assert deva.normalise('क़') == 'क़' and len(deva.normalise('क़')) == 2   # decomposed nukta
+def test_ipa():
+    assert phon.ipa('देहरादून') == '/d̪eːɦraːd̪uːn/'
+    assert phon.ipa('हल्द्वानी') == '/ɦəld̪ʋaːniː/'
+    assert phon.ipa('अल्मोड़ा') == '/əlmoːɽaː/'
+    assert phon.ipa('पिथौरागढ़') == '/pɪt̪ʰɔːraːɡəɽʱ/'
+    assert phon.ipa('रुद्रप्रयाग') == '/rʊd̪rəprəjaːɡ/'
+    assert phon.ipa('चंडीगढ़') == '/t͡ʃəɳɖiːɡəɽʱ/'
+    assert phon.ipa('हाँ') == '/ɦaː̃/'
+    assert phon.ipa('नैनीताल') == '/nɛːniːt̪aːl/'
+    assert phon.ipa('उत्तरकाशी') == '/ʊt̪t̪ərkaːʃiː/'
+    assert phon.ipa('ऋषिकेश') == '/rɪʂɪkeːʃ/'
+    assert phon.ipa('समझना') == '/səməd͡ʒʱnaː/'
+def test_roman():
+    assert roman.romanise('देहरादून')['scheme'] == 'Dehradun'
+    assert roman.romanise('हल्द्वानी')['scheme'] == 'Haldwani'
+    assert roman.romanise('हरिद्वार')['scheme'] == 'Haridwar'
+    assert roman.romanise('उत्तरकाशी')['scheme'] == 'Uttarkashi'
+    assert roman.romanise('पिथौरागढ़')['scheme'] == 'Pithauragarh'
+    assert roman.romanise('पिथौरागढ़')['recommended'] == 'Pithoragarh'
+    assert roman.romanise('नैनीताल')['scheme'] == 'Nainital'
+    assert roman.romanise('ऋषिकेश')['scheme'] == 'Rishikesh'
+    assert roman.romanise('चम्पावत')['scheme'] == 'Champawat'
+    assert roman.romanise('बागेश्वर')['scheme'] == 'Bageshwar'
+    assert roman.romanise('रुद्रप्रयाग')['scheme'] == 'Rudraprayag'
+    assert roman.romanise('जोशीमठ')['scheme'] == 'Joshimath'
+    assert roman.romanise('कोटद्वार')['scheme'] == 'Kotdwar'
+    assert roman.romanise('नई दिल्ली')['scheme'] == 'Nai Dilli'
+    assert roman.romanise('देहरादून')['scheme_diacritic'] == 'Dehrādūn'
+    r = roman.romanise('काशीपुर', existing_en='Kashipur'); assert r['kind'] == 'scheme'
+    assert roman.romanise('देवप्रयाग')['scheme'] == 'Dewprayag' and roman.romanise('देवप्रयाग')['recommended'] == 'Devprayag'
+    assert roman.romanise('कर्णप्रयाग')['scheme'] == 'Karnaprayag'

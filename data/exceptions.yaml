@@ -1,0 +1,14 @@
+# Established Roman forms that depart from the Hunterian scheme. Each entry says why the historical form is kept.
+# Keyed by the normalised Devanagari name. "form" is the established spelling; "scheme" is what the rules give.
+मसूरी: {form: Mussoorie, scheme: Masuri, reason: "British-era spelling in continuous official use since the 1820s (gazetteer, municipal board, Survey of India sheets)"}
+पिथौरागढ़: {form: Pithoragarh, scheme: Pithauragarh, reason: "district and town official spelling renders औ as 'o' (Census, state notifications)"}
+रुड़की: {form: Roorkee, scheme: Rurki, reason: "spelling fixed by the 1847 Roorkee College / IIT Roorkee and the municipal record"}
+टिहरी: {form: Tehri, scheme: Tihri, reason: "district name in the 1949 merger notification and all later records uses 'Tehri'"}
+देवप्रयाग: {form: Devprayag, scheme: Dewprayag, reason: "modern official records render व as 'v' in 'Dev' (deity), not Hunterian 'w'"}
+विकासनगर: {form: Vikasnagar, scheme: Wikasnagar, reason: "official municipal spelling uses 'v' for word-initial व"}
+लैंसडाउन: {form: Lansdowne, scheme: Lainsdaun, reason: "English-origin name (Lord Lansdowne, 1887); Devanagari is the borrowing"}
+श्रीनगर: {form: Srinagar, scheme: Shrinagar, reason: "Sanskrit श्री conventionally romanised 'Sri' in official records"}
+वाराणसी: {form: Varanasi, scheme: Waranasi, reason: "official spelling adopted in 1956 renaming uses 'v'"}
+दिल्ली: {form: Delhi, scheme: Dilli, reason: "constitutional and international name; Hindi form is a re-borrowing"}
+लखनऊ: {form: Lucknow, scheme: Lakhnau, reason: "British-era spelling retained in all official records"}
+कर्णप्रयाग: {form: Karnaprayag, scheme: Karnaprayag, reason: "scheme and record agree"}
