@@ -26,9 +26,9 @@ Against the definition of done in `docs/PLAN.md`:
 
 ## Running it
 ```bash
-cd ~/workshop/ukis-p015
+cd ukis-p015
 ./run.sh serve      # http://127.0.0.1:8015
 ./run.sh test       # 13 tests
 ./run.sh build --rebuild && ./run.sh eval --noise    # ~3 min + ~5 min on the RTX 3050
-~/.claude/browser/run.sh ui/check/ui_check.cjs
+./run.sh ui-check
 ```

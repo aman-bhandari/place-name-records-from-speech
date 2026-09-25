@@ -1,5 +1,5 @@
 // Interface check for Eknaam: queue, a case page, upload page, audit and method at phone and desktop widths.
-//   ~/.claude/browser/run.sh ui/check/ui_check.cjs [base-url]
+//   ./run.sh ui-check [base-url]   (needs: npm install && npx playwright install chromium)
 // Fails on a console error, a missing heading, horizontal overflow, or a case page without its sheet entry and evidence table.
 const { chromium } = require('playwright'); const fs = require('fs'); const path = require('path')
 const BASE = process.argv[2] || 'http://127.0.0.1:8015'; const SHOTS = path.join(__dirname, 'shots'); fs.mkdirSync(SHOTS, { recursive: true })
