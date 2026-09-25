@@ -50,7 +50,7 @@ ten capabilities, done honestly with real speakers.
 | 0.3 | Model accuracy on real multi-speaker clips (Lingua Libre, 51 words × 3 speakers) | a Hindi CTC model with clip CER ≤ 25% and consensus exact ≥ 75% |
 | 0.4 | Forced-alignment cut: cut the name from ≥ 30 sentence clips; re-recognise the cut | ≥ 80% of cuts re-recognised as the name |
 | 0.5 | Speaker distinctness: x-vectors separate readers in Shrutilipi hits | cosine clusters ≥ 3 per name on a sample |
-**Gate:** if 0.2 fails → fall back to IndicVoices + Wikidata + labelled TTS and tell Aman; if 0.3 fails → tell Aman before building.
+**Gate:** if 0.2 fails → fall back to IndicVoices + Wikidata + labelled TTS and report; if 0.3 fails → stop and report before building.
 
 ## Plan test results (25 Sep 2026)
 | Test | Result | Pass? |
@@ -91,4 +91,4 @@ records (CSV/JSON). Upload page to add clips to a case. Playwright check script.
 
 ## Phase 5 — Ship
 README (architecture, licences of every corpus and model, limits), RESULTS.md, DEMO.md, STATUS.md, registration draft
-(not to be raised until Aman opens it), `./run.sh build|serve|test`.
+(deferred), `./run.sh build|serve|test`.
