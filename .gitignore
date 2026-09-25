@@ -1,0 +1,8 @@
+.venv/
+data/raw/
+data/audio/
+data/cache/
+*.pyc
+__pycache__/
+ui/node_modules/
+ui/dist/
